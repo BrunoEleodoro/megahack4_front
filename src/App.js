@@ -6,6 +6,7 @@ import Historico from "./pages/historico/Historico";
 import NovaLeitura from "./pages/nova_leitura/NovaLeitura";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import ResultadoNovaLeitura from "./pages/resultado_nova_leitura/ResultadoNovaLeitura";
+import SimulacaoGastos from "./pages/simulacao_gastos/SimulacaoGastos";
 
 const theme = createMuiTheme({
   palette: {
@@ -40,6 +41,9 @@ function App() {
             </Route>
             <Route path={"/resultado_nova_leitura"}>
               <ResultadoNovaLeitura />
+            </Route>
+            <Route path={"/simulacao_gastos"}>
+              <SimulacaoGastos />
             </Route>
           </Switch>
         </div>
