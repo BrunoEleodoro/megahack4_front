@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/megahack4_front/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/megahack4_front/static/js/main.a88e4942.chunk.js",
+    "main.js.map": "/megahack4_front/static/js/main.a88e4942.chunk.js.map",
+    "runtime-main.js": "/megahack4_front/static/js/runtime-main.e0811d97.js",
+    "runtime-main.js.map": "/megahack4_front/static/js/runtime-main.e0811d97.js.map",
+    "static/js/2.46ffbb98.chunk.js": "/megahack4_front/static/js/2.46ffbb98.chunk.js",
+    "static/js/2.46ffbb98.chunk.js.map": "/megahack4_front/static/js/2.46ffbb98.chunk.js.map",
+    "static/js/3.7f4a8064.chunk.js": "/megahack4_front/static/js/3.7f4a8064.chunk.js",
+    "static/js/3.7f4a8064.chunk.js.map": "/megahack4_front/static/js/3.7f4a8064.chunk.js.map",
+    "index.html": "/megahack4_front/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/megahack4_front/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.46ffbb98.chunk.js.LICENSE.txt": "/megahack4_front/static/js/2.46ffbb98.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e0811d97.js",
+    "static/js/2.46ffbb98.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.a88e4942.chunk.js"
+  ]
+}
