@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import SignIn from "./pages/login/SignIn";
 import Home from "./pages/home/Home";
 import Historico from "./pages/historico/Historico";
+import NovaLeitura from "./pages/nova_leitura/NovaLeitura";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 
 const theme = createMuiTheme({
@@ -32,6 +33,9 @@ function App() {
             </Route>
             <Route path="/historico">
               <Historico />
+            </Route>
+            <Route path="/nova_leitura">
+              <NovaLeitura />
             </Route>
           </Switch>
         </div>
