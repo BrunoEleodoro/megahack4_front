@@ -63,7 +63,6 @@ export default function NovaLeitura() {
               Não encontrei o número
             </Link>
             <Button
-              type="submit"
               fullWidth
               variant="contained"
               color="primary"
