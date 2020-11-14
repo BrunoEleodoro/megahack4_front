@@ -10,7 +10,7 @@ import ResultadoNovaLeitura from "./pages/resultado_nova_leitura/ResultadoNovaLe
 const theme = createMuiTheme({
   palette: {
     primary: {
-      main: '#00bcd4',
+      main: "#00bcd4",
     },
     secondary: {
       main: "#fff",
@@ -21,24 +21,24 @@ const theme = createMuiTheme({
 function App() {
   return (
     <MuiThemeProvider theme={theme}>
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <div>
           {/* A <Switch> looks through its children <Route>s and
             renders the first one that matches the current URL. */}
           <Switch>
-            <Route exact path="/">
+            <Route exact path={"/"}>
               <SignIn />
             </Route>
-            <Route path="/home">
+            <Route path={"/home"}>
               <Home />
             </Route>
-            <Route path="/historico">
+            <Route path={"/historico"}>
               <Historico />
             </Route>
-            <Route path="/nova_leitura">
+            <Route path={"/nova_leitura"}>
               <NovaLeitura />
             </Route>
-            <Route path="/resultado_nova_leitura">
+            <Route path={"/resultado_nova_leitura"}>
               <ResultadoNovaLeitura />
             </Route>
           </Switch>
