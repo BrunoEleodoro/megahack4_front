@@ -5,6 +5,7 @@ import Home from "./pages/home/Home";
 import Historico from "./pages/historico/Historico";
 import NovaLeitura from "./pages/nova_leitura/NovaLeitura";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
+import ResultadoNovaLeitura from "./pages/resultado_nova_leitura/ResultadoNovaLeitura";
 
 const theme = createMuiTheme({
   palette: {
@@ -36,6 +37,9 @@ function App() {
             </Route>
             <Route path="/nova_leitura">
               <NovaLeitura />
+            </Route>
+            <Route path="/resultado_nova_leitura">
+              <ResultadoNovaLeitura />
             </Route>
           </Switch>
         </div>
