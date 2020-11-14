@@ -28,7 +28,7 @@ function App() {
               <SignIn />
             </Route>
             <Route path="/home">
-              <Home />
+              <Home  />
             </Route>
             <Route path="/historico">
               <Historico />
