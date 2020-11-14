@@ -218,7 +218,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#ED1B24",marginBottom:1}}>Histórico de economias</h3>
+              <h3 style={{color:"#ED1B24",marginBottom:1,marginTop:0}}>Histórico de economias</h3>
               
             </Box>
           </Grid>
@@ -236,7 +236,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#49A748",marginBottom:1}}>Simulação de gastos</h3>
+              <h3 style={{color:"#49A748",marginBottom:1,marginTop:0}}>Simulação de gastos</h3>
               
             </Box>
           </Grid>
@@ -254,7 +254,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#00ade0",marginBottom:1}}>Dicas para economizar</h3>
+              <h3 style={{color:"#00ade0",marginBottom:1,marginTop:0}}>Dicas para economizar</h3>
               
             </Box>
           </Grid>
@@ -272,7 +272,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#f79735",marginBottom:1}}>Meus pedidos</h3>
+              <h3 style={{color:"#f79735",marginBottom:1,marginTop:0}}>Meus pedidos</h3>
               
             </Box>
           </Grid>
@@ -290,7 +290,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#ED1B24",marginBottom:1}}>Débitos e 2° via de conta</h3>
+              <h3 style={{color:"#ED1B24",marginBottom:1,marginTop:0}}>Débitos e 2° via de conta</h3>
               
             </Box>
           </Grid>
@@ -308,7 +308,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#49A748",marginBottom:1}}>Falta de energia</h3>
+              <h3 style={{color:"#49A748",marginBottom:1,marginTop:0}}>Falta de energia</h3>
               
             </Box>
           </Grid>
@@ -326,7 +326,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#00ade0",marginBottom:1}}>Desligar energia</h3>
+              <h3 style={{color:"#00ade0",marginBottom:1,marginTop:0}}>Desligar energia</h3>
               
             </Box>
           </Grid>
@@ -344,7 +344,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#f79735",marginBottom:1}}>Religar energia</h3>
+              <h3 style={{color:"#f79735",marginBottom:1,marginTop:0}}>Religar energia</h3>
               
             </Box>
           </Grid>
@@ -363,7 +363,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#ED1B24",marginBottom:1}}>Débito Automático</h3>
+              <h3 style={{color:"#ED1B24",marginBottom:1,marginTop:0}}>Débito Automático</h3>
               
             </Box>
           </Grid>
@@ -381,7 +381,7 @@ export default function Home() {
                 </Grid>
               </Grid>
              
-              <h3 style={{color:"#49A748",marginBottom:1}}>Trocar nome na conta</h3>
+              <h3 style={{color:"#49A748",marginBottom:1,marginTop:0}}>Trocar nome na conta</h3>
               
             </Box>
           </Grid>
