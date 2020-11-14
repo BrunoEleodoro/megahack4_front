@@ -30,8 +30,8 @@ function App() {
             <Route exact path={"/"}>
               <SignIn />
             </Route>
-            <Route path={"/home"}>
-              <Home />
+            <Route path="/home">
+              <Home  />
             </Route>
             <Route path={"/historico"}>
               <Historico />
