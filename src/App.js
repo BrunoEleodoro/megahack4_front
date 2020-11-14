@@ -7,6 +7,7 @@ import NovaLeitura from "./pages/nova_leitura/NovaLeitura";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import ResultadoNovaLeitura from "./pages/resultado_nova_leitura/ResultadoNovaLeitura";
 import SimulacaoGastos from "./pages/simulacao_gastos/SimulacaoGastos";
+import AdicionarEletrodomestico from "./pages/adicionar_eletrodomestico/AdicionarEletrodomestico";
 
 const theme = createMuiTheme({
   palette: {
@@ -44,6 +45,9 @@ function App() {
             </Route>
             <Route path={"/simulacao_gastos"}>
               <SimulacaoGastos />
+            </Route>
+            <Route path={"/adicionar_eletrodomestico"}>
+              <AdicionarEletrodomestico />
             </Route>
           </Switch>
         </div>
