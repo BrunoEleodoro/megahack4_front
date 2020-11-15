@@ -33,7 +33,7 @@ exports.postAPI = ({ endpoint, body }) => {
         "Content-Type": "application/json",
         Authorization: "Bearer " + token,
       },
-      body: body,
+      body: JSON.stringify(body),
     })
       .then(function (response) {
         return response.json();

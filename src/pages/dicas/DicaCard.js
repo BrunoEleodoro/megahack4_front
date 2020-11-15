@@ -13,14 +13,14 @@ const useStyles = makeStyles({
   root: {
     maxWidth: 345,
   },
-  button:{
+  button: {
     background: "linear-gradient(135deg, #006c9d 20%, #00b3c7 90%)",
     border: 0,
     borderRadius: 3,
     boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
     color: "white",
-    marginTop:20,
-    fontWeight:"bold"
+    marginTop: 20,
+    fontWeight: "bold",
   },
 });
 
@@ -28,31 +28,39 @@ export default function DicaCard({ title, description, image }) {
   const classes = useStyles();
 
   return (
-    <Box border={6} style={{borderColor:"#6aaca9",borderRadius:10}}>
-    <Card className={classes.root}>
-      <CardActionArea>
-        <CardMedia
-          component="img"
-          alt="Contemplative Reptile"
-          height="140"
-          image={image}
-          title="Contemplative Reptile"
-        />
-        <CardContent>
-          <Typography style={{ color: "#0177A4"}} gutterBottom variant="h5" component="h2">
-            {title}
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            {description}
-          </Typography>
-        </CardContent>
-      </CardActionArea>
-      <CardActions>
-        <Button size="small" className={classes.button}>
-          Vou economizar
-        </Button>
-      </CardActions>
-    </Card>
+    <Box border={6} style={{ borderColor: "#6aaca9", borderRadius: 10 }}>
+      <Card className={classes.root}>
+          <CardMedia
+            component="img"
+            alt="Contemplative Reptile"
+            height="140"
+            image={image}
+            title="Contemplative Reptile"
+          />
+          <CardContent>
+            <Typography
+              style={{ color: "#0177A4" }}
+              gutterBottom
+              variant="h5"
+              component="h2"
+            >
+              {title}
+            </Typography>
+            <Typography variant="body2" color="textSecondary" component="p">
+              {description.split("\n").map((c) => {
+                if (c !== ";") {
+                  return <p> {c} </p>;
+                }
+              })}
+              ;
+            </Typography>
+          </CardContent>
+        <CardActions>
+          <Button size="small" className={classes.button}>
+            Vou economizar
+          </Button>
+        </CardActions>
+      </Card>
     </Box>
   );
 }
