@@ -24,11 +24,11 @@ export default function CustomToolbar({ showBackButton = false }) {
     <AppBar position="relative" className={classes.nova_leitura}>
       <Toolbar>
         {showBackButton === true ? (
-          <IconButton color="secondary" aria-label="icone de voltar" onClick={() => history.goBack()}>
+          <IconButton style={{color:"#fff"}} aria-label="icone de voltar" onClick={() => history.goBack()}>
             <BackButtonIcon />
           </IconButton>
         ) : (
-          <IconButton color="secondary" aria-label="icone de voltar">
+          <IconButton style={{color:"#fff"}} aria-label="icone de voltar">
             <Menu />
           </IconButton>
         )}

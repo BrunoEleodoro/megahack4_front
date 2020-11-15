@@ -1,5 +1,10 @@
 import React from "react";
+import clsx from 'clsx';
+import IconButton from '@material-ui/core/IconButton';
+import Input from '@material-ui/core/Input';
 import Avatar from "@material-ui/core/Avatar";
+import InputLabel from '@material-ui/core/InputLabel';
+import InputAdornment from '@material-ui/core/InputAdornment';
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -8,20 +13,25 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Link from "@material-ui/core/Link";
 import Grid from "@material-ui/core/Grid";
 import Box from "@material-ui/core/Box";
+import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import { useHistory } from "react-router-dom";
+import logo from "../../images/logo.png";
 import { postAPI } from "../../utils/Api";
 import { CircularProgress } from "@material-ui/core";
+import Visibility from '@material-ui/icons/Visibility';
+import VisibilityOff from '@material-ui/icons/VisibilityOff';
+import FormControl from '@material-ui/core/FormControl';
 
 function Copyright() {
   return (
-    <Typography variant="body2" color="textSecondary" align="center">
+    <Typography variant="body2" style={{color:"#C8EBEE"}} color="textSecondary" align="center">
       {"Copyright © "}
       <Link color="inherit" href="https://material-ui.com/">
-        Your Website
+        CPFL + Economia
       </Link>{" "}
       {new Date().getFullYear()}
       {"."}
@@ -29,33 +39,45 @@ function Copyright() {
   );
 }
 
+const muiTheme = createMuiTheme({
+  palette: {
+    background: {
+      default: "#406a76"
+    },
+  },
+});
+
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(3),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
   },
+  root:{
+    backgroundColor:"#406a76"
+  },
   avatar: {
     margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
+    backgroundColor: "#406a76",
+  },
+  textField: {
+    width: "100%",
   },
   button: {
-    background: "linear-gradient(135deg, #006c9d 20%, #00b3c7 90%)",
-    border: 0,
-    borderRadius: 3,
-    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
-    color: "white",
+    borderColor: "#8ed6de",
+    backgroundColor: "#406a76",
     marginTop: 20,
     marginBottom: 20,
     fontWeight: "bold",
   },
   form: {
     width: "100%", // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    backgroundColor: "#406a76",
+    fontWeight: "bold",
+    color:"#8ed6de"
   },
 }));
 
@@ -65,6 +87,18 @@ export default function SignIn() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isLoading, setIsLoading] = React.useState(false);
+
+  const [values, setValues] = React.useState({
+    showPassword: false,
+  });
+
+  const handleClickShowPassword = () => {
+    setValues({ ...values, showPassword: !values.showPassword });
+  };
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
 
   async function login() {
     setIsLoading(true);
@@ -88,54 +122,83 @@ export default function SignIn() {
   }
 
   return (
+    < MuiThemeProvider  theme = { muiTheme } >
     <Container component="main">
       <CssBaseline />
       <div className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign in
+        
+        <Typography component="h1" style={{color:"#fff",fontWeight:"bold"}} variant="h5">
+        Seja bem-vindo(a)!
         </Typography>
+        <center>
+          <img src={logo} alt="logo cpfl" />
+        </center>
         <form className={classes.form} noValidate>
           <TextField
-            variant="outlined"
             margin="normal"
+            style={{marginBottom:20}}
             required
             fullWidth
             id="email"
-            label="Email Address"
+            label="Email"
             name="email"
             autoComplete="email"
+            InputLabelProps={{
+              style: { color: '#8ed6de'},
+            }}
             autoFocus
             onChange={(e) => setEmail(e.target.value)}
           />
-          <TextField
+          {/* <TextField
             variant="outlined"
             margin="normal"
             required
             fullWidth
             name="password"
-            label="Password"
+            label="Senha"
             type="password"
             id="password"
             autoComplete="current-password"
             onChange={(e) => setPassword(e.target.value)}
+          /> */}
+          <FormControl className={clsx(classes.margin, classes.textField)} style={{marginBottom:10}}>
+          <InputLabel style={{color:"#8ed6de"}} htmlFor="standard-adornment-password">Password</InputLabel>
+          <Input
+            id="standard-adornment-password"
+            type={values.showPassword ? 'text' : 'password'}
+            value={values.password}
+            fullWidth
+            required
+            style={{color:"#8ed6de"}}
+            onChange={(e) => setPassword(e.target.value)}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  style={{color:"#8ed6de"}}
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                >
+                  {values.showPassword ? <Visibility /> : <VisibilityOff />}
+                </IconButton>
+              </InputAdornment>
+            }
           />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Lembrar"
-          />
+        </FormControl>
+          
+          <Box border={3}
+          className={(classes.button)}>
           <Button
             type="submit"
             fullWidth
             onClick={login} 
             variant="contained"
-            className={(classes.submit, classes.button)}
+            className={(classes.submit)}
             disabled={isLoading}
           >
-            Login
+            Entrar
           </Button>
+          </Box>
           {isLoading ? (
             <Grid container alignItems="center" justify="center">
               <CircularProgress />
@@ -143,16 +206,16 @@ export default function SignIn() {
           ) : (
             ""
           )}
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Esqueceu a senha?
+          <Grid container justify="center">
+            <Grid item justify="center">
+              <center>
+              <Typography style={{color:"#030228",fontSize:14,fontWeight:"bold"}}>
+                Nao tem uma conta? <Link href="#" style={{color:"#C8EBEE",textDecoration:"underline"}} variant="body2">
+                {"Cadastre-se"}
               </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Nao tem uma conta? Cadastre-se"}
-              </Link>
+              </Typography>
+              
+              </center>
             </Grid>
           </Grid>
         </form>
@@ -161,5 +224,6 @@ export default function SignIn() {
         <Copyright />
       </Box>
     </Container>
+    </MuiThemeProvider>
   );
 }
