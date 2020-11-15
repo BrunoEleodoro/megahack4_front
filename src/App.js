@@ -9,6 +9,7 @@ import ResultadoNovaLeitura from "./pages/resultado_nova_leitura/ResultadoNovaLe
 import SimulacaoGastos from "./pages/simulacao_gastos/SimulacaoGastos";
 import AdicionarEletrodomestico from "./pages/adicionar_eletrodomestico/AdicionarEletrodomestico";
 import Dicas from "./pages/dicas/Dicas";
+import Simulacao from "./pages/simulacao/Simulacao";
 
 const theme = createMuiTheme({
   palette: {
@@ -34,6 +35,9 @@ function App() {
             </Route>
             <Route path="/home">
               <Home  />
+            </Route>
+            <Route path="/simulacao">
+              <Simulacao  />
             </Route>
             <Route path={"/historico"}>
               <Historico />
