@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
@@ -28,6 +28,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Box } from "@material-ui/core";
 import Divider from "@material-ui/core/Divider";
 import Humaaans from "../../images/Humaaans.png";
+import { getAPI, postAPI } from "../../utils/Api";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -115,25 +116,91 @@ export default function AdicionarEletrodomestico() {
   const classes = useStyles();
   const [eletrodomestico, setEletrodomestico] = React.useState("");
   const [antigo, setAntigo] = React.useState("nao");
+  const [horasDia, setHorasDia] = React.useState("");
+  const [quantidade, setQuantidade] = React.useState("");
+  const [eletrodomesticos, setEletrodomesticos] = React.useState([]);
+  const [tabelaPreco, setTabelaPreco] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
   const history = useHistory();
-  let eletrodomesticos = [
-    {
-      label: "Geladeira",
-      value: "geladeira",
-    },
-    {
-      label: "Chuveiro",
-      value: "chuveiro",
-    },
-  ];
-
   const [open, setOpen] = React.useState(false);
+
+  async function getTabelaPreco() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/tabela_precos";
+      let res = await getAPI({ endpoint });
+      setTabelaPreco(res.tabela);
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
+
+  async function getEletrodomesticos() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/auth/eletrodomesticos";
+      let res = await getAPI({ endpoint });
+      setEletrodomesticos(res.data);
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
+
+  function adicionar() {
+    eletrodomesticos.push({
+      aparelho: eletrodomestico,
+      potencia: tabelaPreco.find((item) => {
+        return item.aparelho === eletrodomestico;
+      }).potencia,
+      unidade: tabelaPreco.find((item) => {
+        return item.aparelho === eletrodomestico;
+      }).unidade,
+      consumo: tabelaPreco.find((item) => {
+        return item.aparelho === eletrodomestico;
+      }).consumo,
+      custo: tabelaPreco.find((item) => {
+        return item.aparelho === eletrodomestico;
+      }).custo,
+      quantidade: parseFloat(quantidade),
+      antigo: antigo,
+      horas_dia: parseFloat(horasDia),
+    });
+    console.log(eletrodomesticos);
+    enviarDados();
+  }
+
+  async function enviarDados() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/auth/eletrodomesticos";
+      let body = {
+        eletrodomesticos: eletrodomesticos,
+      };
+      let res = await postAPI({ endpoint, body });
+      if (res.status === 1) {
+        handleClickOpen();
+      } else {
+        window.alert(res.message);
+      }
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    getTabelaPreco();
+    getEletrodomesticos();
+  }, []);
 
   const handleClickOpen = () => {
     setOpen(true);
   };
   const handleClose = () => {
     setOpen(false);
+    history.push('/simulacao_gastos')
   };
 
   return (
@@ -166,8 +233,10 @@ export default function AdicionarEletrodomestico() {
                 <MenuItem value="">
                   <em>Escolha...</em>
                 </MenuItem>
-                {eletrodomesticos.map((item, index) => {
-                  return <MenuItem value={item.value}>{item.label} </MenuItem>;
+                {tabelaPreco.map((item, index) => {
+                  return (
+                    <MenuItem value={item.aparelho}>{item.aparelho} </MenuItem>
+                  );
                 })}
               </Select>
             </FormControl>
@@ -178,8 +247,18 @@ export default function AdicionarEletrodomestico() {
               fullWidth
               id="horas_dia"
               label="Horas por dia"
+              onChange={(e) => setHorasDia(e.target.value)}
             />
-            <FormControl component="fieldset" style={{marginTop:20}}>
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              id="quantidade"
+              label="Quantidade"
+              onChange={(e) => setQuantidade(e.target.value)}
+            />
+            <FormControl component="fieldset" style={{ marginTop: 20 }}>
               <FormLabel component="legend">Este aparelho e antigo?</FormLabel>
               <RadioGroup
                 aria-label="antigo"
@@ -206,7 +285,7 @@ export default function AdicionarEletrodomestico() {
               variant="contained"
               color="primary"
               className={classes.button}
-              onClick={handleClickOpen}
+              onClick={adicionar}
             >
               Adicionar
             </Button>
@@ -233,7 +312,7 @@ export default function AdicionarEletrodomestico() {
                   style={{ fontSize: 20, color: "#f79735", fontWeight: "bold" }}
                   gutterBottom
                 >
-                AVISO
+                  AVISO
                 </Typography>
               </Grid>
               <Grid item md={12} xs={12} sm={12}>
@@ -241,7 +320,9 @@ export default function AdicionarEletrodomestico() {
                   style={{ fontSize: 16, color: "#fff", fontWeight: "bold" }}
                   gutterBottom
                 >
-                  Lembre-se que se trata de uma simulação. Portanto os valores apresentados são apenas para que você entenda sua conta, sem garantia que sua fatura virá com o mesmo valor.
+                  Lembre-se que se trata de uma simulação. Portanto os valores
+                  apresentados são apenas para que você entenda sua conta, sem
+                  garantia que sua fatura virá com o mesmo valor.
                 </Typography>
               </Grid>
               <Grid item md={12} xs={12} sm={12}>

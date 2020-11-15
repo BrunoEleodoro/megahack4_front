@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import CustomToolbar from "../../components/CustomToolbar";
 import CustomFab from "../../components/CustomFab";
@@ -24,6 +24,7 @@ import MuiDialogContent from "@material-ui/core/DialogContent";
 import MuiDialogActions from "@material-ui/core/DialogActions";
 import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
+import {getAPI} from "../../utils/Api";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -156,8 +157,11 @@ const DialogActions = withStyles((theme) => ({
 
 export default function Home() {
   const classes = useStyles();
-
+  const [profile, setProfile] = React.useState({});
+  const [eletrodomesticos, setEletrodomesticos] = React.useState({});
   const [open, setOpen] = React.useState(false);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [total, setTotal] = React.useState(0);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -165,6 +169,56 @@ export default function Home() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  async function getEletrodomesticos() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/auth/eletrodomesticos";
+      let res = await getAPI({ endpoint });
+      if (res.status === 1) {
+        setEletrodomesticos(res.data);
+      } else {
+        window.alert(res.message);
+      }
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
+  
+  async function getProfile() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/auth/profile";
+      let res = await getAPI({ endpoint });
+      if (res.status === 1) {
+        setProfile(res.data);
+        getEletrodomesticos();
+      } else {
+        window.alert(res.message);
+      }
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    getProfile();
+  }, [])
+
+  useEffect(() => {
+    let total = 0;
+    let i = 0;
+    while(i < eletrodomesticos.length) {
+      let eletro = eletrodomesticos[i];
+      let custoUnit = (((eletro.consumo * 0.85) * eletro.quantidade) * (eletro.horas_dia * 30));
+      total += custoUnit;
+      i++;
+    }
+    console.log(total);
+    setTotal(total);
+  }, [eletrodomesticos]);
 
   return (
     <React.Fragment>
@@ -208,7 +262,7 @@ export default function Home() {
               className={classes.center}
               justify="center"
             >
-              <h1 style={{ margin: 0, padding: 0 }}>R$ 197,13</h1>
+              <h1 style={{ margin: 0, padding: 0 }}>R$ {total}</h1>
             </Grid>
             <Grid
               item
