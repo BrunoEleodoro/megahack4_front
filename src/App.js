@@ -8,6 +8,7 @@ import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import ResultadoNovaLeitura from "./pages/resultado_nova_leitura/ResultadoNovaLeitura";
 import SimulacaoGastos from "./pages/simulacao_gastos/SimulacaoGastos";
 import AdicionarEletrodomestico from "./pages/adicionar_eletrodomestico/AdicionarEletrodomestico";
+import Dicas from "./pages/dicas/Dicas";
 
 const theme = createMuiTheme({
   palette: {
@@ -49,6 +50,10 @@ function App() {
             <Route path={"/adicionar_eletrodomestico"}>
               <AdicionarEletrodomestico />
             </Route>
+            <Route path={"/dicas"}>
+              <Dicas />
+            </Route>
+            
           </Switch>
         </div>
       </Router>
