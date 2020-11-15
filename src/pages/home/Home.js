@@ -28,6 +28,7 @@ import menu8 from "../../images/menu8.png";
 import menu9 from "../../images/menu9.png";
 import menu10 from "../../images/menu10.png";
 import Add from "@material-ui/icons/Add";
+import { useHistory } from "react-router-dom";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -124,6 +125,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Simulacao() {
   const classes = useStyles();
+  const history = useHistory();
   return (
     <React.Fragment>
       <CustomToolbar showBackButton={false} />
@@ -255,8 +257,10 @@ export default function Simulacao() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item md={1} xs={3} sm={3}>
-            <Button className={classes.nova_leitura}>Nova leitura</Button>
+          <Grid item md={1} xs={1} sm={1}>
+            <Button className={classes.nova_leitura} onClick={()=>history.push(
+            "/nova_leitura"
+          )}>Nova leitura</Button>
           </Grid>
         </Grid>
         <h2 style={{ color: "#0177A4", marginBottom: 1 }}>
@@ -265,7 +269,9 @@ export default function Simulacao() {
         <Divider style={{ backgroundColor: "#0177A4", marginBottom: 20 }} />
 
         <Grid container spacing={1} alignItems="center">
-          <Grid item md={6} xs={6} sm={6}>
+          <Grid item md={6} xs={6} sm={6} onClick={()=>history.push(
+            "/historico"
+          )}>
             <Box
               className={classes.card_options}
               border={1}
@@ -287,7 +293,9 @@ export default function Simulacao() {
               </h3>
             </Box>
           </Grid>
-          <Grid item md={6} xs={6} sm={6}>
+          <Grid item md={6} xs={6} sm={6} onClick={()=>history.push(
+            "/simulacao_gastos"
+          )}>
             <Box
               className={classes.card_options}
               border={1}
@@ -309,7 +317,9 @@ export default function Simulacao() {
               </h3>
             </Box>
           </Grid>
-          <Grid item md={6} xs={6} sm={6}>
+          <Grid item md={6} xs={6} sm={6} onClick={()=>history.push(
+            "/dicas"
+          )} >
             <Box
               className={classes.card_options}
               border={1}

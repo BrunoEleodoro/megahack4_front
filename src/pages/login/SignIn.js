@@ -12,6 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
+import { useHistory } from 'react-router-dom';
 
 function Copyright() {
   return (
@@ -37,6 +38,16 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
+  button: {
+    background: "linear-gradient(135deg, #006c9d 20%, #00b3c7 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+    marginTop: 20,
+    marginBottom: 20,
+    fontWeight: "bold",
+  },
   form: {
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
@@ -49,8 +60,10 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
 
+  const history = useHistory();
+
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
@@ -89,9 +102,11 @@ export default function SignIn() {
           <Button
             type="submit"
             fullWidth
+            onClick={()=>history.push(
+              "/home"
+            )}
             variant="contained"
-            color="primary"
-            className={classes.submit}
+            className={classes.submit,classes.button}
           >
             Sign In
           </Button>

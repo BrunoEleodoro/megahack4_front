@@ -9,10 +9,11 @@ import {
 } from "@material-ui/core";
 import CustomFab from "../../components/CustomFab";
 import DicaCard from "./DicaCard";
+import Divider from "@material-ui/core/Divider";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
-    marginTop: theme.spacing(8),
+    marginTop: theme.spacing(0),
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
@@ -74,17 +75,18 @@ export default function Dicas() {
   return (
     <React.Fragment>
       <CustomToolbar showBackButton={true} />
-      <Container component="main" maxWidth="xs">
+      <Container component="main">
+        <h2 style={{ color: "#0177A4", marginBottom: 1 }}>
+          Dicas para economizar
+          </h2>
+          <Divider style={{ backgroundColor: "#0177A4", marginBottom: 20 }} />
         <CssBaseline />
         <div className={classes.paper}>
-          <Typography component="h1" variant="h5">
-            Dicas para economizar
-          </Typography>
           <br/>
           <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
             {dicasList.map((item, index) => {
               return (
-                <Grid item xs={12}>
+                <Grid item md={12} xs={12}>
                   <DicaCard
                     title={item.title}
                     description={item.description}
