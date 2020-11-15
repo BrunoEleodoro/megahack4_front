@@ -6,6 +6,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CustomFab from "../../components/CustomFab";
 import CustomToolbar from "../../components/CustomToolbar";
+import CloseIcon from "@material-ui/icons/Close";
 import {
   Table,
   TableCell,
@@ -13,11 +14,12 @@ import {
   TableRow,
   Grid,
   LinearProgress,
+  IconButton,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
-import { getAPI } from "../../utils/Api";
+import { getAPI, postAPI } from "../../utils/Api";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -68,6 +70,25 @@ export default function SimulacaoGastos() {
     setIsLoading(false);
   }
 
+  async function enviarDados() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/auth/eletrodomesticos";
+      let body = {
+        eletrodomesticos: eletrodomesticos,
+      };
+      let res = await postAPI({ endpoint, body });
+      if (res.status === 1) {
+        getEletrodomesticos();
+      } else {
+        window.alert(res.message);
+      }
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
+
   useEffect(() => {
     getEletrodomesticos();
   }, []);
@@ -108,6 +129,19 @@ export default function SimulacaoGastos() {
                     </Typography>
                   </TableCell>
                   <TableCell>{item.custo}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      onClick={() => {
+                        if (window.confirm("Tem certeza que deseja deletar?")) {
+                          eletrodomesticos.splice(index, 1);
+                          console.log(index, eletrodomesticos);
+                          enviarDados();
+                        }
+                      }}
+                    >
+                      <CloseIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>
