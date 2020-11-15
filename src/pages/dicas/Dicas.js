@@ -1,15 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CustomToolbar from "../../components/CustomToolbar";
 import {
   Container,
   CssBaseline,
-  Typography,
   Grid,
   makeStyles,
+  CircularProgress,
 } from "@material-ui/core";
 import CustomFab from "../../components/CustomFab";
 import DicaCard from "./DicaCard";
 import Divider from "@material-ui/core/Divider";
+import { getAPI } from "../../utils/Api";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,44 +34,24 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Dicas() {
   const classes = useStyles();
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [dicasList, setDicasList] = React.useState([]);
 
-  let dicasList = [
-    {
-      title: "Dica Chuveiro",
-      description:
-        "Durante o Verão ou a primavera desligue o chuveiro elétrico ou reduza o uso.",
-      image:
-        "https://d1kvbg99uxpcu.cloudfront.net/Custom/Content/Products/99/81/998153_ducha-chuveiro-eletrico-lorenzetti-bello-ultra-3-temperaturas-220-v-branco_m13_636810044557458436",
-    },
-    {
-      title: "Dica Chuveiro",
-      description:
-        "Durante o Verão ou a primavera desligue o chuveiro elétrico ou reduza o uso.",
-      image:
-        "https://d1kvbg99uxpcu.cloudfront.net/Custom/Content/Products/99/81/998153_ducha-chuveiro-eletrico-lorenzetti-bello-ultra-3-temperaturas-220-v-branco_m13_636810044557458436",
-    },
-    {
-      title: "Dica Chuveiro",
-      description:
-        "Durante o Verão ou a primavera desligue o chuveiro elétrico ou reduza o uso.",
-      image:
-        "https://d1kvbg99uxpcu.cloudfront.net/Custom/Content/Products/99/81/998153_ducha-chuveiro-eletrico-lorenzetti-bello-ultra-3-temperaturas-220-v-branco_m13_636810044557458436",
-    },
-    {
-      title: "Dica Chuveiro",
-      description:
-        "Durante o Verão ou a primavera desligue o chuveiro elétrico ou reduza o uso.",
-      image:
-        "https://d1kvbg99uxpcu.cloudfront.net/Custom/Content/Products/99/81/998153_ducha-chuveiro-eletrico-lorenzetti-bello-ultra-3-temperaturas-220-v-branco_m13_636810044557458436",
-    },
-    {
-      title: "Dica Chuveiro",
-      description:
-        "Durante o Verão ou a primavera desligue o chuveiro elétrico ou reduza o uso.",
-      image:
-        "https://d1kvbg99uxpcu.cloudfront.net/Custom/Content/Products/99/81/998153_ducha-chuveiro-eletrico-lorenzetti-bello-ultra-3-temperaturas-220-v-branco_m13_636810044557458436",
-    },
-  ];
+  async function getDicas() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/dicas";
+      let res = await getAPI({ endpoint });
+      setDicasList(res.data);
+    } catch (err) {
+      alert(err);
+    }
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    getDicas();
+  }, []);
 
   return (
     <React.Fragment>
@@ -78,23 +59,33 @@ export default function Dicas() {
       <Container component="main">
         <h2 style={{ color: "#0177A4", marginBottom: 1 }}>
           Dicas para economizar
-          </h2>
-          <Divider style={{ backgroundColor: "#0177A4", marginBottom: 20 }} />
+        </h2>
+        <Divider style={{ backgroundColor: "#0177A4", marginBottom: 20 }} />
         <CssBaseline />
         <div className={classes.paper}>
-          <br/>
-          <Grid container direction="column" justify="center" alignItems="center" spacing={3}>
-            {dicasList.map((item, index) => {
-              return (
-                <Grid item md={12} xs={12}>
-                  <DicaCard
-                    title={item.title}
-                    description={item.description}
-                    image={item.image}
-                  />
-                </Grid>
-              );
-            })}
+          <br />
+          <Grid
+            container
+            direction="column"
+            justify="center"
+            alignItems="center"
+            spacing={3}
+          >
+            {isLoading ? (
+              <CircularProgress />
+            ) : (
+              dicasList.map((item, index) => {
+                return (
+                  <Grid item md={12} xs={12}>
+                    <DicaCard
+                      title={item.title}
+                      description={item.description}
+                      image={item.image}
+                    />
+                  </Grid>
+                );
+              })
+            )}
           </Grid>
         </div>
         <CustomFab />
