@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Typography from "@material-ui/core/Typography";
@@ -6,10 +6,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
 import CustomFab from "../../components/CustomFab";
 import CustomToolbar from "../../components/CustomToolbar";
-import { Table, TableCell, TableBody, TableRow, Grid } from "@material-ui/core";
+import {
+  Table,
+  TableCell,
+  TableBody,
+  TableRow,
+  Grid,
+  LinearProgress,
+} from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 import Box from "@material-ui/core/Box";
 import Divider from "@material-ui/core/Divider";
+import { getAPI } from "../../utils/Api";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -40,27 +48,30 @@ const useStyles = makeStyles((theme) => ({
 
 export default function SimulacaoGastos() {
   const classes = useStyles();
-
-  let ultimasLeituras = [
-    {
-      data: "1",
-      consumo: "Geladeira",
-      valor: "24h por dia",
-    },
-
-    {
-      data: "2",
-      consumo: "Televisao",
-      valor: "8h por dia",
-    },
-
-    {
-      data: "1",
-      consumo: "Ar Condicionado",
-      valor: "9h por dia",
-    },
-  ];
   const history = useHistory();
+  const [eletrodomesticos, setEletrodomesticos] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  async function getEletrodomesticos() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/auth/eletrodomesticos";
+      let res = await getAPI({ endpoint });
+      if (res.status === 1) {
+        setEletrodomesticos(res.data);
+      } else {
+        window.alert(res.message);
+      }
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    getEletrodomesticos();
+  }, []);
+
   return (
     <React.Fragment>
       <CustomToolbar showBackButton={true} />
@@ -71,17 +82,17 @@ export default function SimulacaoGastos() {
             Simulação de gastos
           </h2>
           <Divider style={{ backgroundColor: "#0177A4", marginBottom: 10 }} />
-
+          {isLoading ? <LinearProgress /> : ""}
           <h2 style={{ color: "#000", marginBottom: 20 }}>
             Seus eletrodomésticos:
           </h2>
           <Table size="small">
             <TableBody>
-              {ultimasLeituras.map((item, index) => (
+              {eletrodomesticos.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell>
                     <Box border={1}>
-                      <center> {item.data}</center>
+                      <center> {item.aparelho}</center>
                     </Box>
                   </TableCell>
                   <TableCell>
@@ -96,7 +107,7 @@ export default function SimulacaoGastos() {
                       {item.consumo}
                     </Typography>
                   </TableCell>
-                  <TableCell>{item.valor}</TableCell>
+                  <TableCell>{item.custo}</TableCell>
                 </TableRow>
               ))}
             </TableBody>
@@ -114,9 +125,12 @@ export default function SimulacaoGastos() {
               </Button>
             </Grid>
             <Grid item sm={12} xs={6}>
-              <Button variant="contained"  fullWidth className={classes.button} onClick={()=>history.push(
-            "/simulacao"
-          )}>
+              <Button
+                variant="contained"
+                fullWidth
+                className={classes.button}
+                onClick={() => history.push("/simulacao")}
+              >
                 Simular
               </Button>
             </Grid>
