@@ -38,10 +38,7 @@ export default function DicaCard({ title, description, image }) {
       </CardActionArea>
       <CardActions>
         <Button size="small" color="primary">
-          Share
-        </Button>
-        <Button size="small" color="primary">
-          Learn More
+          Vou Economizar!
         </Button>
       </CardActions>
     </Card>
