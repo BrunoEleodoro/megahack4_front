@@ -17,17 +17,13 @@ import LinearProgress from "@material-ui/core/LinearProgress";
 import Typography from "@material-ui/core/Typography";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import { IconButton } from "@material-ui/core";
-import menu1 from "../../images/menu1.png";
-import menu2 from "../../images/menu2.png";
-import menu3 from "../../images/menu3.png";
-import menu4 from "../../images/menu4.png";
-import menu5 from "../../images/menu5.png";
-import menu6 from "../../images/menu6.png";
-import menu7 from "../../images/menu7.png";
-import menu8 from "../../images/menu8.png";
-import menu9 from "../../images/menu9.png";
-import menu10 from "../../images/menu10.png";
-import Add from "@material-ui/icons/Add";
+
+import Dialog from "@material-ui/core/Dialog";
+import MuiDialogTitle from "@material-ui/core/DialogTitle";
+import MuiDialogContent from "@material-ui/core/DialogContent";
+import MuiDialogActions from "@material-ui/core/DialogActions";
+import CloseIcon from "@material-ui/icons/Close";
+import TextField from "@material-ui/core/TextField";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -107,118 +103,413 @@ const useStyles = makeStyles((theme) => ({
     paddingLeft: 20,
     paddingRight: 20,
   },
+  dialog: {
+    backgroundColor: "#0f5374",
+    color: "#98e4ea",
+  },
+  center_dialog: {
+    alignContent: "center",
+    justifyContent: "center",
+    verticalAlign: "center",
+  },
 }));
+
+const styles = (theme) => ({
+  closeButton: {
+    position: "absolute",
+    right: theme.spacing(1),
+    top: theme.spacing(1),
+    color: theme.palette.grey[500],
+  },
+});
+
+const DialogTitle = withStyles(styles)((props) => {
+  const { children, classes, onClose, ...other } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root} {...other}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={onClose}
+        >
+          <CloseIcon />
+        </IconButton>
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
+const DialogContent = withStyles((theme) => ({
+  root: {
+    padding: theme.spacing(2),
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles((theme) => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing(1),
+  },
+}))(MuiDialogActions);
 
 export default function Home() {
   const classes = useStyles();
+
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <React.Fragment>
-      <CustomToolbar showBackButton={false} />
+      <CustomToolbar showBackButton={true} />
       <div className={classes.root}>
         <h2 style={{ color: "#0177A4", marginBottom: 1 }}>
           Simulação de fatura
         </h2>
         <Divider style={{ backgroundColor: "#0177A4", marginBottom: 20 }} />
 
-          <div className={classes.box_azul}>
+        <div className={classes.box_azul}>
           <center>
             <h2 style={{ color: "#fff", marginBottom: 1, padding: 10 }}>
               NOVEMBRO
             </h2>
           </center>
-          </div>
-          <div style={{ backgroundColor: "#f8f8f9",padding:0,margin:0}}>
-            <Grid container style={{paddingTop:50,marginBottom:0}} justify="center">
-                <Grid item md={12} xs={12} sm={12} className={classes.center}  justify="center">
-                    <Typography className={classes.title} gutterBottom>
-                        VALOR
-                    </Typography>
-                </Grid>
-                <Grid item md={12} xs={12} sm={12} className={classes.center}  justify="center">
-                    <h1 style={{margin: 0, padding: 0 }}>
-                        R$ 197,13
-                    </h1>
-                </Grid>
-                <Grid item md={12} xs={12} sm={12} className={classes.center}  justify="center">
-                    <Typography style={{color:"#929292",fontSize: 14}} gutterBottom>
-                        R$ 2,32/dia
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center}  justify="center">
-                    <Typography style={{color:"#000",fontSize: 14, fontWeight:"bold"}} gutterBottom>
-                       Vencimento
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center}  justify="center">
-                    <Typography style={{color:"#000",fontSize: 14, fontWeight:"bold"}} gutterBottom>
-                       Consumo
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center}  justify="left">
-                    <Typography style={{color:"#000",fontSize: 20, fontWeight:"bold"}} gutterBottom>
-                       31/11/2020
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center} justify="center">
-                    <Typography style={{color:"#000",fontSize: 20, fontWeight:"bold"}} gutterBottom>
-                        243 kWh
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center}  justify="left">
-                    <Typography style={{color:"#000",fontSize: 20, fontWeight:"bold"}} gutterBottom>
-                      
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center}  justify="center">
-                    <Typography style={{color:"#929292",fontSize: 14}} gutterBottom>
-                        8,6kWh/dia
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center} style={{marginTop:20}}  justify="center">
-                    <Typography style={{color:"#000",fontSize: 14, fontWeight:"bold"}} gutterBottom>
-                       Bandeira
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center} style={{marginTop:20}} justify="center">
-                    <Typography style={{color:"#000",fontSize: 14, fontWeight:"bold"}} gutterBottom>
-                       Situação
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center} style={{paddingBottom:40,marginBottom:0}} justify="center">
-                    <Typography style={{color:"#57c754",fontSize: 14, fontWeight:"bold"}} gutterBottom>
-                       VERDE
-                    </Typography>
-                </Grid>
-                <Grid item md={6} xs={6} sm={6} className={classes.center} style={{paddingBottom:40,marginBottom:0}} justify="center">
-                    <Typography style={{color:"#de9245",fontSize: 14, fontWeight:"bold"}} gutterBottom>
-                       Em aberto
-                    </Typography>
-                </Grid>
+        </div>
+        <div style={{ backgroundColor: "#f8f8f9", padding: 0, margin: 0 }}>
+          <Grid
+            container
+            style={{ paddingTop: 50, marginBottom: 0 }}
+            justify="center"
+          >
+            <Grid
+              item
+              md={12}
+              xs={12}
+              sm={12}
+              className={classes.center}
+              justify="center"
+            >
+              <Typography className={classes.title} gutterBottom>
+                VALOR
+              </Typography>
             </Grid>
-          </div>
-          <div className={classes.box_verde}>
-            <Typography style={{color:"#000",fontSize: 12, padding:20}} gutterBottom>
-            Parabéns! O valor da sua simulação está 10,4% menor do que a sua meta de R$ 220,00 
-            </Typography>
-            <Grid container justify="center">
-            <Grid item md={8} xs={8} sm={8} className={classes.center} style={{paddingBottom:10,margin:0}} justify="center">
-                    <Typography style={{color:"#de9245",fontSize: 14, fontWeight:"bold"}} gutterBottom>
-                       
-                    </Typography>
+            <Grid
+              item
+              md={12}
+              xs={12}
+              sm={12}
+              className={classes.center}
+              justify="center"
+            >
+              <h1 style={{ margin: 0, padding: 0 }}>R$ 197,13</h1>
             </Grid>
-            <Grid item md={4} xs={4} sm={4} className={classes.center} style={{paddingBottom:10,margin:0}} justify="center">
-            <Button variant="contained" alignContent="left" style={{color:"#358133",backgroundColor:"#fff",fontWeight:"bold",fontSize:12}}>
+            <Grid
+              item
+              md={12}
+              xs={12}
+              sm={12}
+              className={classes.center}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#929292", fontSize: 14 }}
+                gutterBottom
+              >
+                R$ 2,32/dia
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#000", fontSize: 14, fontWeight: "bold" }}
+                gutterBottom
+              >
+                Vencimento
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#000", fontSize: 14, fontWeight: "bold" }}
+                gutterBottom
+              >
+                Consumo
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              justify="left"
+            >
+              <Typography
+                style={{ color: "#000", fontSize: 20, fontWeight: "bold" }}
+                gutterBottom
+              >
+                31/11/2020
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#000", fontSize: 20, fontWeight: "bold" }}
+                gutterBottom
+              >
+                243 kWh
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              justify="left"
+            >
+              <Typography
+                style={{ color: "#000", fontSize: 20, fontWeight: "bold" }}
+                gutterBottom
+              ></Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#929292", fontSize: 14 }}
+                gutterBottom
+              >
+                8,6kWh/dia
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              style={{ marginTop: 20 }}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#000", fontSize: 14, fontWeight: "bold" }}
+                gutterBottom
+              >
+                Bandeira
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              style={{ marginTop: 20 }}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#000", fontSize: 14, fontWeight: "bold" }}
+                gutterBottom
+              >
+                Situação
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              style={{ paddingBottom: 40, marginBottom: 0 }}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#57c754", fontSize: 14, fontWeight: "bold" }}
+                gutterBottom
+              >
+                VERDE
+              </Typography>
+            </Grid>
+            <Grid
+              item
+              md={6}
+              xs={6}
+              sm={6}
+              className={classes.center}
+              style={{ paddingBottom: 40, marginBottom: 0 }}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#de9245", fontSize: 14, fontWeight: "bold" }}
+                gutterBottom
+              >
+                Em aberto
+              </Typography>
+            </Grid>
+          </Grid>
+        </div>
+        <div className={classes.box_verde}>
+          <Typography
+            style={{ color: "#000", fontSize: 12, padding: 20 }}
+            gutterBottom
+          >
+            Parabéns! O valor da sua simulação está 10,4% menor do que a sua
+            meta de R$ 220,00
+          </Typography>
+          <Grid container justify="center">
+            <Grid
+              item
+              md={8}
+              xs={8}
+              sm={8}
+              className={classes.center}
+              style={{ paddingBottom: 10, margin: 0 }}
+              justify="center"
+            >
+              <Typography
+                style={{ color: "#de9245", fontSize: 14, fontWeight: "bold" }}
+                gutterBottom
+              ></Typography>
+            </Grid>
+            <Grid
+              item
+              md={4}
+              xs={4}
+              sm={4}
+              className={classes.center}
+              style={{ paddingBottom: 10, margin: 0 }}
+              justify="center"
+            >
+              <Button
+                variant="contained"
+                alignContent="left"
+                onClick={handleClickOpen}
+                style={{
+                  color: "#358133",
+                  backgroundColor: "#fff",
+                  fontWeight: "bold",
+                  fontSize: 12,
+                }}
+              >
                 Mudar meta
-            </Button>
+              </Button>
             </Grid>
-            </Grid>
-          </div>
-          <Typography style={{color:"#777777",fontSize: 12,paddingTop:10,textDecoration:"underline"}} gutterBottom>
-            Parabéns! O valor da sua simulação está 10,4% menor do que a sua meta de R$ 220,00 
-            </Typography>
+          </Grid>
+        </div>
+        <Typography
+          style={{
+            color: "#777777",
+            fontSize: 12,
+            paddingTop: 10,
+            textDecoration: "underline",
+          }}
+          gutterBottom
+        >
+          Parabéns! O valor da sua simulação está 10,4% menor do que a sua meta
+          de R$ 220,00
+        </Typography>
 
         <CustomFab />
       </div>
+      <Dialog
+        onClose={handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={open}
+      >
+        <DialogContent dividers className={classes.dialog}>
+          <center>
+            <Grid
+              container
+              spacing={2}
+              className={classes.center_dialog}
+              alignItems="center"
+            >
+              <Grid item md={12} xs={12} sm={12}>
+                <Typography
+                  style={{ fontSize: 22, color: "#FFF", fontWeight: "bold" }}
+                  gutterBottom
+                >
+                  MUDANÇA DE META
+                </Typography>
+              </Grid>
+              <Grid item md={4} xs={4} sm={4}>
+                <Typography
+                  style={{ fontSize: 18, color: "#98e4ea", fontWeight: "bold" }}
+                  gutterBottom
+                >
+                  Meta antiga:
+                </Typography>
+              </Grid>
+              <Grid item md={8} xs={8} sm={8}>
+                <Typography
+                  style={{ fontSize: 18, color: "#fff", fontWeight: "bold" }}
+                  gutterBottom
+                >
+                  R$ 200,00
+                </Typography>
+              </Grid>
+              <Grid item md={4} xs={4} sm={4}>
+                <Typography
+                  style={{ fontSize: 18, color: "#98e4ea", fontWeight: "bold" }}
+                  gutterBottom
+                >
+                  Nova meta:
+                </Typography>
+              </Grid>
+              <Grid item md={8} xs={8} sm={8}>
+                <TextField
+                  id="filled-size-small"
+                  style={{backgroundColor:"#3e738d"}}
+                  variant="filled"
+                  size="small"
+                />
+              </Grid>
+            </Grid>
+          </center>
+        </DialogContent>
+        <DialogActions className={classes.dialog}>
+          <Box border={3} style={{ borderColor: "#98e4ea", borderRadius: 20 }}>
+            <Button
+              autoFocus
+              onClick={handleClose}
+              style={{ color: "#98e4ea" }}
+            >
+              <b>MUDAR</b>
+            </Button>
+          </Box>
+        </DialogActions>
+      </Dialog>
     </React.Fragment>
   );
 }
