@@ -35,10 +35,6 @@ const BorderLinearProgress = withStyles((theme) => ({
     height: 10,
     borderRadius: 5,
   },
-  colorPrimary: {
-    backgroundColor:
-      theme.palette.grey[theme.palette.type === "#444A4E" ? 200 : 700],
-  },
   bar: {
     borderRadius: 5,
     backgroundColor: "#62e060",
@@ -123,13 +119,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+
 export default function Simulacao() {
   const classes = useStyles();
   const history = useHistory();
   return (
     <React.Fragment>
       <CustomToolbar showBackButton={false} />
-      <div className={classes.root}>
+      <div className={classes.root} style={{backgroundColor:"#fff"}}>
         <FormControl fullWidth className={classes.margin} variant="outlined">
           <Paper component="form" className={classes.paper}>
             <Grid container spacing={1} alignItems="flex-end">
@@ -147,7 +144,7 @@ export default function Simulacao() {
           </Paper>
         </FormControl>
         <Grid container spacing={1} alignItems="center">
-          <Grid item md={11} xs={9} sm={9}>
+          <Grid item md={9} xs={7} sm={8}>
             <Card className={classes.card}>
               <CardContent>
                 <Typography className={classes.title} gutterBottom>
