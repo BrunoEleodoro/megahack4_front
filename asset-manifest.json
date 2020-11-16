@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/megahack4_front/static/css/main.8c8b27cf.chunk.css",
-    "main.js": "/megahack4_front/static/js/main.191cccd0.chunk.js",
-    "main.js.map": "/megahack4_front/static/js/main.191cccd0.chunk.js.map",
+    "main.js": "/megahack4_front/static/js/main.ca5db93e.chunk.js",
+    "main.js.map": "/megahack4_front/static/js/main.ca5db93e.chunk.js.map",
     "runtime-main.js": "/megahack4_front/static/js/runtime-main.4182952a.js",
     "runtime-main.js.map": "/megahack4_front/static/js/runtime-main.4182952a.js.map",
     "static/js/2.a2795ec2.chunk.js": "/megahack4_front/static/js/2.a2795ec2.chunk.js",
@@ -20,6 +20,6 @@
     "static/js/runtime-main.4182952a.js",
     "static/js/2.a2795ec2.chunk.js",
     "static/css/main.8c8b27cf.chunk.css",
-    "static/js/main.191cccd0.chunk.js"
+    "static/js/main.ca5db93e.chunk.js"
   ]
 }
