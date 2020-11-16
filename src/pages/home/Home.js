@@ -20,6 +20,7 @@ import { IconButton } from "@material-ui/core";
 import menu1 from "../../images/menu1.png";
 import menu2 from "../../images/menu2.png";
 import menu3 from "../../images/menu3.png";
+import FiberManualRecordIcon from "@material-ui/icons/FiberManualRecord";
 import menu4 from "../../images/menu4.png";
 import menu5 from "../../images/menu5.png";
 import menu6 from "../../images/menu6.png";
@@ -87,6 +88,13 @@ const useStyles = makeStyles((theme) => ({
     height: 48,
     padding: "0 30px",
   },
+  status: {
+    background: "linear-gradient(135deg, #006c9d 20%, #00b3c7 90%)",
+    border: 0,
+    borderRadius: 3,
+    boxShadow: "0 3px 5px 2px rgba(255, 105, 135, .3)",
+    color: "white",
+  },
   card_div2: {
     height: 140,
     margin: 10,
@@ -119,14 +127,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-
 export default function Simulacao() {
   const classes = useStyles();
   const history = useHistory();
   return (
     <React.Fragment>
       <CustomToolbar showBackButton={false} />
-      <div className={classes.root} style={{backgroundColor:"#fff"}}>
+      <div className={classes.root} style={{ backgroundColor: "#fff" }}>
         <FormControl fullWidth className={classes.margin} variant="outlined">
           <Paper component="form" className={classes.paper}>
             <Grid container spacing={1} alignItems="flex-end">
@@ -143,8 +150,44 @@ export default function Simulacao() {
             </Grid>
           </Paper>
         </FormControl>
+        <Grid
+          container
+          spacing={1}
+          style={{ marginTop: 20 }}
+          alignItems="center"
+        >
+          <Grid item md={12} xs={12} sm={12}>
+            <center>
+              <Box fullWidth className={classes.status}>
+                <Grid
+                  container
+                  spacing={1}
+                  style={{ marginTop: 20 }}
+                  alignItems="center"
+                  justify="center"
+                >
+                  <Grid item md={3} xs={9} sm={5}>
+                    <Typography
+                      className={classes.title}
+                      style={{ fontSize: 14,fontWeight:"bold" }}
+                      gutterBottom
+                    >
+                      Status de fornecimento de energia
+                    </Typography>
+                  </Grid>
+                  <Grid item md={1} xs={1} sm={1}>
+                    <FiberManualRecordIcon
+                      size="small"
+                      style={{ color: "#71FF6F" }}
+                    ></FiberManualRecordIcon>
+                  </Grid>
+                </Grid>
+              </Box>
+            </center>
+          </Grid>
+        </Grid>
         <Grid container spacing={1} alignItems="center">
-          <Grid item md={9} xs={7} sm={8}>
+          <Grid item md={11} xs={12} sm={9}>
             <Card className={classes.card}>
               <CardContent>
                 <Typography className={classes.title} gutterBottom>
@@ -152,10 +195,22 @@ export default function Simulacao() {
                 </Typography>
                 <Divider />
                 <Grid container spacing={1}>
-                  <Grid item md={3} sm={2} xs={4} className={classes.card_div1}>
+                  <Grid
+                    item
+                    md={3}
+                    sm={2}
+                    xs={12}
+                    className={classes.card_div1}
+                  >
                     <AttachMoneyIcon style={{ fontSize: 40 }} />
                   </Grid>
-                  <Grid item md={8} xs={7} sm={9} className={classes.card_div2}>
+                  <Grid
+                    item
+                    md={8}
+                    xs={12}
+                    sm={9}
+                    className={classes.card_div2}
+                  >
                     <Typography
                       style={{
                         fontSize: 12,
@@ -173,7 +228,7 @@ export default function Simulacao() {
                       }}
                     >
                       <Grid container>
-                        <Grid item md={10} xs={9} sm={10}>
+                        <Grid item md={10} xs={12} sm={10}>
                           <Typography
                             style={{
                               fontSize: 12,
@@ -186,7 +241,7 @@ export default function Simulacao() {
                             R$ 120,00
                           </Typography>
                         </Grid>
-                        <Grid item md={2} xs={2} sm={2}>
+                        <Grid item md={2} xs={12} sm={2}>
                           <Typography
                             style={{
                               fontSize: 12,
@@ -217,7 +272,7 @@ export default function Simulacao() {
                       }}
                     >
                       <Grid container>
-                        <Grid item md={10} xs={9} sm={10}>
+                        <Grid item md={10} xs={12} sm={10}>
                           <Typography
                             style={{
                               fontSize: 12,
@@ -230,7 +285,7 @@ export default function Simulacao() {
                             R$ 120,00
                           </Typography>
                         </Grid>
-                        <Grid item md={2} xs={2} sm={2}>
+                        <Grid item md={2} xs={12} sm={2}>
                           <Typography
                             style={{
                               fontSize: 12,
@@ -245,6 +300,13 @@ export default function Simulacao() {
                       </Grid>
                     </Paper>
                   </Grid>
+                  <Grid
+                    item
+                    md={12}
+                    sm={12}
+                    xs={12}
+                    style={{ marginBottom: 40 }}
+                  ></Grid>
                 </Grid>
                 <BorderLinearProgress
                   variant="determinate"
@@ -254,10 +316,13 @@ export default function Simulacao() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item md={1} xs={1} sm={1}>
-            <Button className={classes.nova_leitura} onClick={()=>history.push(
-            "/nova_leitura"
-          )}>Nova leitura</Button>
+          <Grid item md={1} xs={12} sm={1}>
+            <Button
+              className={classes.nova_leitura}
+              onClick={() => history.push("/nova_leitura")}
+            >
+              Nova leitura
+            </Button>
           </Grid>
         </Grid>
         <h2 style={{ color: "#0177A4", marginBottom: 1 }}>
@@ -266,9 +331,13 @@ export default function Simulacao() {
         <Divider style={{ backgroundColor: "#0177A4", marginBottom: 20 }} />
 
         <Grid container spacing={1} alignItems="center">
-          <Grid item md={6} xs={6} sm={6} onClick={()=>history.push(
-            "/historico"
-          )}>
+          <Grid
+            item
+            md={6}
+            xs={6}
+            sm={6}
+            onClick={() => history.push("/historico")}
+          >
             <Box
               className={classes.card_options}
               border={1}
@@ -290,9 +359,13 @@ export default function Simulacao() {
               </h3>
             </Box>
           </Grid>
-          <Grid item md={6} xs={6} sm={6} onClick={()=>history.push(
-            "/simulacao_gastos"
-          )}>
+          <Grid
+            item
+            md={6}
+            xs={6}
+            sm={6}
+            onClick={() => history.push("/simulacao_gastos")}
+          >
             <Box
               className={classes.card_options}
               border={1}
@@ -314,9 +387,13 @@ export default function Simulacao() {
               </h3>
             </Box>
           </Grid>
-          <Grid item md={6} xs={6} sm={6} onClick={()=>history.push(
-            "/dicas"
-          )} >
+          <Grid
+            item
+            md={6}
+            xs={6}
+            sm={6}
+            onClick={() => history.push("/dicas")}
+          >
             <Box
               className={classes.card_options}
               border={1}
