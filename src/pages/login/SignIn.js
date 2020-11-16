@@ -131,7 +131,7 @@ export default function SignIn() {
         Seja bem-vindo(a)!
         </Typography>
         <center>
-          <img src={logo} alt="logo cpfl" />
+          <img src={logo} width="140px" style={{marginTop:20}} alt="logo cpfl" />
         </center>
         <form className={classes.form} noValidate>
           <TextField
