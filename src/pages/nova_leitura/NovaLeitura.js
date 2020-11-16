@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
 import { withStyles } from "@material-ui/core/styles";
@@ -26,6 +26,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import { Box } from "@material-ui/core";
 import modal1 from "../../images/modal1.png";
 import { useHistory } from "react-router-dom";
+import {postAPI, getAPI} from "../../utils/Api";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -113,6 +114,49 @@ export default function NovaLeitura() {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
+  const [leituras, setLeituras] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  const [numeroContador, setNumeroContador] = React.useState("");
+  
+  async function getLeituras() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/auth/leituras";
+      let res = await getAPI({ endpoint });
+      setLeituras(res.data);
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
+
+  useEffect(() => {
+    getLeituras();
+  }, []);
+
+  async function enviarDados() {
+    setIsLoading(true);
+    try {
+      leituras.push({
+        data: new Date().toLocaleString(),
+        consumo: numeroContador,
+        valor: 146.82,
+      });
+      let endpoint = "/auth/leituras";
+      let body = {
+        leituras: leituras,
+      };
+      let res = await postAPI({ endpoint, body });
+      if (res.status === 1) {
+        handleClickOpen();
+      } else {
+        window.alert(res.message);
+      }
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -140,6 +184,7 @@ export default function NovaLeitura() {
               fullWidth
               id="numero"
               label="Insira aqui o número do contador "
+              onChange={e => setNumeroContador(e.target.value)}
             />
             <Link href="#" variant="body2">
               Não encontrei o número
@@ -147,7 +192,7 @@ export default function NovaLeitura() {
             <Button
               fullWidth
               variant="contained"
-              onClick={handleClickOpen}
+              onClick={enviarDados}
               className={(classes.submit, classes.button)}
             >
               Calcular

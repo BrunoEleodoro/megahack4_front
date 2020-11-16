@@ -49,10 +49,9 @@ export default function DicaCard({ title, description, image }) {
             <Typography variant="body2" color="textSecondary" component="p">
               {description.split("\n").map((c) => {
                 if (c !== ";") {
-                  return <p> {c} </p>;
+                  return <p> {c} </p>
                 }
               })}
-              ;
             </Typography>
           </CardContent>
         <CardActions>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import TextField from "@material-ui/core/TextField";
 import Link from "@material-ui/core/Link";
@@ -17,6 +17,7 @@ import {
   TableRow,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
+import {getAPI} from "../../utils/Api";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -49,32 +50,28 @@ const useStyles = makeStyles((theme) => ({
 export default function ResultadoNovaLeitura() {
   const classes = useStyles();
   const history = useHistory();
+  const [leituras, setLeituras] = React.useState([]);
+  const [isLoading, setIsLoading] = React.useState(false);
+  
+  async function getLeituras() {
+    setIsLoading(true);
+    try {
+      let endpoint = "/auth/leituras";
+      let res = await getAPI({ endpoint });
+      let leiturasTemp = res.data;
+      leiturasTemp.reverse();
+      setLeituras(leiturasTemp);
+    } catch (err) {
+      window.alert(err);
+    }
+    setIsLoading(false);
+  }
 
-  let ultimasLeituras = [
-    {
-      data: "20/11/2020",
-      consumo: "172kWh",
-      valor: "146,82",
-    },
+  useEffect(() => {
+    getLeituras();
+  }, []);
 
-    {
-      data: "20/11/2020",
-      consumo: "172kWh",
-      valor: "146,82",
-    },
 
-    {
-      data: "20/11/2020",
-      consumo: "172kWh",
-      valor: "146,82",
-    },
-
-    {
-      data: "20/11/2020",
-      consumo: "172kWh",
-      valor: "146,82",
-    },
-  ];
 
   return (
     <React.Fragment>
@@ -150,7 +147,7 @@ export default function ResultadoNovaLeitura() {
               </TableRow>
             </TableHead>
             <TableBody>
-              {ultimasLeituras.map((item, index) => (
+              {leituras.map((item, index) => (
                 <TableRow key={index}>
                   <TableCell><b>{item.data}</b></TableCell>
                   <TableCell><b>{item.consumo}</b></TableCell>

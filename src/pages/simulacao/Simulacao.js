@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, { useEffect } from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import CustomToolbar from "../../components/CustomToolbar";
 import CustomFab from "../../components/CustomFab";
@@ -24,7 +24,7 @@ import MuiDialogContent from "@material-ui/core/DialogContent";
 import MuiDialogActions from "@material-ui/core/DialogActions";
 import CloseIcon from "@material-ui/icons/Close";
 import TextField from "@material-ui/core/TextField";
-import {getAPI} from "../../utils/Api";
+import { getAPI } from "../../utils/Api";
 
 const BorderLinearProgress = withStyles((theme) => ({
   root: {
@@ -162,6 +162,8 @@ export default function Home() {
   const [open, setOpen] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [total, setTotal] = React.useState(0);
+  const [consumo, setConsumo] = React.useState(0);
+  const [mediaDia, setMediaDia] = React.useState(0);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -185,7 +187,7 @@ export default function Home() {
     }
     setIsLoading(false);
   }
-  
+
   async function getProfile() {
     setIsLoading(true);
     try {
@@ -205,17 +207,28 @@ export default function Home() {
 
   useEffect(() => {
     getProfile();
-  }, [])
+  }, []);
 
   useEffect(() => {
+    var date = new Date();
+    var time = new Date(date.getTime());
+    time.setMonth(date.getMonth() + 1);
+    time.setDate(0);
+    var days =
+      time.getDate() > date.getDate() ? time.getDate() - date.getDate() : 0;
     let total = 0;
+    let totalConsumo  = 0;
     let i = 0;
-    while(i < eletrodomesticos.length) {
+    while (i < eletrodomesticos.length) {
       let eletro = eletrodomesticos[i];
-      let custoUnit = (((eletro.consumo * 0.85) * eletro.quantidade) * (eletro.horas_dia * 30));
+      let custoUnit =
+        eletro.consumo * 0.85 * eletro.quantidade * (eletro.horas_dia * 30);
       total += custoUnit;
+      totalConsumo += eletro.consumo
       i++;
     }
+    setMediaDia((total / days).toFixed(2));
+    setConsumo(totalConsumo);
     console.log(total);
     setTotal(total);
   }, [eletrodomesticos]);
@@ -276,7 +289,7 @@ export default function Home() {
                 style={{ color: "#929292", fontSize: 14 }}
                 gutterBottom
               >
-                R$ 2,32/dia
+                R$ {mediaDia}/dia
               </Typography>
             </Grid>
             <Grid
@@ -336,7 +349,7 @@ export default function Home() {
                 style={{ color: "#000", fontSize: 20, fontWeight: "bold" }}
                 gutterBottom
               >
-                243 kWh
+                {consumo} kWh
               </Typography>
             </Grid>
             <Grid
@@ -544,7 +557,7 @@ export default function Home() {
               <Grid item md={8} xs={8} sm={8}>
                 <TextField
                   id="filled-size-small"
-                  style={{backgroundColor:"#3e738d"}}
+                  style={{ backgroundColor: "#3e738d" }}
                   variant="filled"
                   size="small"
                 />
